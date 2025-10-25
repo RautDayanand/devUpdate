@@ -1,14 +1,14 @@
 package dev_update.backend.model;
 
-
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 @Entity
 @Table(name = "releases")
@@ -24,13 +24,15 @@ public class Release {
 
     @ManyToOne
     @JoinColumn(name = "tech_id", nullable = false)
-    private Tech tech;            // link to Tech entity
+    private Tech tech;
 
     private String version;
+
+    // Changed to LocalDateTime in UTC
     private LocalDateTime publishedAt;
-    private String rawChangelog;   // full changelog text
-    private String diffUrl;        // link to diff if available
+
+    private String rawChangelog;
+    private String diffUrl;
+
     private LocalDateTime fetchedAt;
 }
-
-

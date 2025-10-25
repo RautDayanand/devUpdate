@@ -19,9 +19,12 @@ public class Tech {
     private Long id;
 
     private String name;           // Tool name, e.g., React
+    private String apiUrl;   // API endpoint to fetch latest version info
     private String packageId;      // e.g., npm package name
     private String primarySource;  // GitHub / official repo
     private String website;        // official website
     private String description;    // optional: short description
     private String logoUrl;        // optional: URL to logo
+
+
 }
