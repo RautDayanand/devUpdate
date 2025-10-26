@@ -21,6 +21,7 @@ public class ReleaseService {
                 .toList();
     }
 
+
     public List<Release>getAllRelease(){
         return releaseRepo.findAll();
     }

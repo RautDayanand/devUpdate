@@ -9,6 +9,7 @@ import dev_update.backend.repo.TechRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Instant;
@@ -25,10 +26,17 @@ public class AutoUpdateService {
     @Autowired
     private ReleaseRepository relRepo;
 
-    private final WebClient webClient = WebClient.create();
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final WebClient webClient = WebClient.builder()
+            .exchangeStrategies(ExchangeStrategies.builder()
+                    .codecs(configurer -> configurer
+                            .defaultCodecs()
+                            .maxInMemorySize(10 * 1024 * 1024)) // 10 MB buffer
+                    .build())
+            .build();
 
-    @Scheduled(fixedRate = 3600000) // runs every 1 hour
+    private final ObjectMapper mapper = new ObjectMapper();
+//3600000
+    @Scheduled(fixedRate = 10000) // runs every 1 hour
     public void scheduledFetchUpdates() {
         autoFetchUpdates();
     }
@@ -73,7 +81,8 @@ public class AutoUpdateService {
                     System.out.println("✅ New release added for " + tech.getName() + ": " + version);
                 }
 
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 System.err.println("❌ Error updating " + tech.getName() + ": " + e.getMessage());
             }
         }
