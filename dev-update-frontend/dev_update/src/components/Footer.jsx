@@ -1,19 +1,12 @@
-import React from 'react'
-function Footer(){
-    return (
-        <>
-        <div className="text-center mt-5 pt-4 border-top">
-          <p className="text-muted">
-            🔄 Auto-updated • 🚀 Built for developers •{" "}
-            <a
-              href="#"
-              className="text-primary text-decoration-none fw-medium"
-            >
-              Add your technology
-            </a>
-          </p>
-        </div>
-        </>
-    )
-}
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+const Footer = () => (
+  <footer className="text-center py-4 border-top mt-5">
+    <p className="text-muted small mb-0">
+      © 2025 DevTracker • Built with ❤️ using React + Bootstrap
+    </p>
+  </footer>
+);
+
 export default Footer;
